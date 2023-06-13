@@ -1,19 +1,119 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Blog V2 -
+			{% endblock %}
+		</title>
+		<link
+		rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+		{# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
-</html>
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.2.3/dist/lux/bootstrap.min.css">
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.2.3/dist/lux/_variables.min.css">
+		{% endblock %}
+	</head>
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="{{path('app_home')}}">Blog V2</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarColor01">
+					<ul class="navbar-nav me-auto">
+						<li class="nav-item">
+							<a class="nav-link active" href="{{path('app_home')}}">Accueil
+								<span class="visually-hidden">(current)</span>
+							</a>
+						</li>
+						{% if app.user %}
+							<li class="nav-item">
+								<a class="nav-link" href="{{path('app_ingredient')}}">Mes ingrédients</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{path('recipe.index')}}">Mes recettes</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{path('recipe.index.public')}}">Recettes de la communauté</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" href="{{path('contact')}}">Demandes de contact</a>
+							</li>
+						{% endif %}
+					</ul>
+					<div class="d-flew">
+						<ul class="navbar-nav me-auto">
+							{% if app.user %}
+								<li class="nav-item dropdown" style="margin-right: 5rem;">
+									<a class="nav-link dropdown-toggle text-light" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{app.user.fullName}}</a>
+									<div class="dropdown-menu">
+										<a class="dropdown-item" href="{{path('user.edit', {id : app.user.id})}}">Modifier mes informations</a>
+										<a class="dropdown-item" href="{{path('user.edit.password', {id : app.user.id})}}">Modifier mon mot de passe</a>
+										<div class="dropdown-divider"></div>
+										{% if 'ROLE_ADMIN' in app.user.roles %}
+											<a class="dropdown-item" href="{{path('admin.index')}}">Dashboard</a>
+											<div class="dropdown-divider"></div>
+										{% endif %}
+										<a class="dropdown-item" href="{{path('security.logout')}}">Déconnexion</a>
+									</div>
+								</li>
+							{% else %}
+								<ul class="nav nav-pills align-items-center" style=" margin-right: 5rem;">
+									<li class="nav-item">
+										<a class="nav-link text-light" href="{{path('security.registration')}}">S'inscrire</a>
+									</li>
+									<li class="nav-item">
+										<a class="nav-link text-light" href="{{path('security.login')}}">Se connecter</a>
+									</li>
+								</ul>
+							{% endif %}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		{% block body %}{% endblock %}
+
+
+	</body>
+	{# {% block footer %}
+																																					<footer class="bg-primary text-center text-white fixed-bottom">
+																																						<div class="container pb-0 pt-5">
+																																							<section class="">
+																																								<form action="">
+																																									<div class="row d-flex justify-content-center">
+																																										<div class="col-auto">
+																																											<p class="pt-3">
+																																												<strong>Inscrivez vous à notre newsletter</strong>
+																																											</p>
+																																										</div>
+																																										<div class="col-md-5 col-12">
+																																											<div class="form-group">
+																																												<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+																																											</div>
+																																										</div>
+																																										<div class="col-auto">
+																																											<button type="submit" class="btn btn-outline-light mb-4">
+																																												S'inscrire
+																																											</button>
+																																										</div>
+																																									</div>
+																																								</form>
+																																							</section>
+																																						</div>
+																																						<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+																																							© 2023 Copyright:
+																																							<a class="text-white" href="https://comparcom.fr/">Comparcom</a>
+																																						</div>
+																																					</footer>
+																																				{% endblock %} #}
+</html></body></html></div></body></html></body></body></html></body> </body></html></body></html>

@@ -1,0 +1,10 @@
+<div class="p-4">
+	<h4>Catégories</h4>
+	<ol class="list-unstyled mb-2">
+		{% for category in categories %}
+			<li>
+				<a href="{{path('category.show', {slug : category.slug})}}" class="text-decoration-none">{{category.name}}</a>
+			</li>
+		{% endfor %}
+	</ol>
+</div>

@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{recipe.name}}
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-4">
+		<h1 class="mt-4">{{recipe.name}}</h1>
+		<div>
+			<span class="badge bg-primary mt-4">Créé le
+				{{recipe.createdAt|date('d/m/y')}}</span>
+		</div>
+
+		<div class="mt-4">
+			<img src="{{ vich_uploader_asset(recipe, 'imageFile') }}" width="500px">
+		</div>
+
+		<div class="mt-4">
+			{% if recipe.time %}
+				<p class="mt-4">Temps (en minute) :
+					{{recipe.time}}
+					min</p>
+			{% else %}
+				<p>Temps non renseigné</p>
+			{% endif %}
+		</div>
+
+		<div class="mt-4">
+			{% if recipe.nbPeople %}
+				<p class="mt-4">Pour :
+					{{recipe.nbPeople}}
+					personnes</p>
+			{% else %}
+				<p>Nombre de personnes non renseigné</p>
+			{% endif %}
+		</div>
+
+		<div class="mt-4">
+			{% if recipe.difficulty %}
+				<p class="mt-4">Difficulté :
+					{{recipe.difficulty}}/5</p>
+			{% else %}
+				<p>Difficulté non renseignée</p>
+			{% endif %}
+		</div>
+
+		<div class="mt-4">
+			{% if recipe.price %}
+				<p class="mt-4">Prix (en €) :
+					{{recipe.price}}
+					€</p>
+			{% else %}
+				<p>Prix non renseigné</p>
+			{% endif %}
+		</div>
+
+
+		<div class="mt-4">
+			{{recipe.description|raw}}
+		</div>
+
+		<p class="mt-4">Ingrédients</p>
+		{% for ingredient in recipe.ingredients %}
+			<span class="badge bg-primary mb-5">{{ingredient.name}}</span>
+		{% endfor %}
+
+
+	{% endblock %}
